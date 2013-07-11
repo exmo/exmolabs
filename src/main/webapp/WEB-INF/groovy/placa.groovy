@@ -1,18 +1,23 @@
 import groovy.json.*
 import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.Locale.Builder
 
 // Locale para pegar o horario de brasilia
 Locale braziliaLocale = new Locale("pt","BR","BRT")
+def sdfDate = new SimpleDateFormat("dd/MM/yyyy")
+sdfDate.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+
+def sdfTime = new SimpleDateFormat("kk:mm:ss")
+sdfTime.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
 def date = new Date()
-def data = new SimpleDateFormat("dd/MM/yyyy", braziliaLocale).format(date)
-def hora = new SimpleDateFormat("kk:mm:ss", braziliaLocale).format(date)
+def data = sdfDate.format(date)
+def hora = sdfTime.format(date)
 
 def placas = [:]
-placas.put("AAA1111",[marca:"FIAT",modelo:"UNO MILLE FIRE 2P",cor:"AZUL",roubado:"S"])
-placas.put("AAA2222",[marca:"VW",modelo:"GOL BOLA 4P",cor:"BRANCO",roubado:"N"])
+placas.put("AAA1111",[marca:"FIAT",modelo:"UNO MILLE FIRE 2P",cor:"AZUL",situacao:[codigo:"00", descricao:"SEM OCORRENCIAS"]])
+placas.put("AAA2222",[marca:"VW",modelo:"GOL BOLA 4P",cor:"BRANCO",situacao:[codigo:"01", descricao:"ROUBADO"]])
+placas.put("AAA3333",[marca:"GM",modelo:"CELTA LIFE 4P",cor:"PRATA",situacao:[codigo:"02", descricao:"FURTADO"]])
+placas.put("AAA4444",[marca:"FORD",modelo:"FIESTA HATCH 4P",cor:"PRETO",situacao:[codigo:"03", descricao:"PLACA CLONADA"]])
 
 def json
 
